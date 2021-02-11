@@ -2,39 +2,42 @@ import tkinter as tk
 import random as r
 
 #bandeau de couleurs
-couleurs = ["blue","red","green"]
-bandeau = [1,2,1,3,3,2,1,1,2,3]
+couleurs = ["white","blue","red","green","yellow","pink","orange"]
+bandeau = [[0 for i in range(50)] for j in range(50)]
+print(bandeau)
 coord = []
 
 #pencil
-pen = "yellow"
+pen = ["yellow",4]
 
 #events
 #pencils change
 def pen_yellow() :
     global pen
-    pen = "yellow"
+    pen = ["yellow",4]
     
 
 def pen_pink() :
     global pen
-    pen = "pink"
+    pen = ["pink",5]
 
 def pen_orange() :
     global pen
-    pen = "orange"
+    pen = ["orange",6]
     
 #clicks/bind event
 def callclick(event) :
+    global bandeau
     for c in coord :
-        if c[0]<event.x<=c[1] :
-            cv.create_rectangle(c[0],0,c[1],100,fill=pen)
+        xL,yL,(i,j) = c
+        if (xL[0]<event.x<=xL[1]) and (yL[0]<event.y<=yL[1]) :
+            cv.create_rectangle(xL[0],yL[0],xL[1],yL[1],fill=pen[0])
+            bandeau[i][j] = pen[1]
 
 def reset() :
     create_bandeau(bandeau)
 
 def tri(event) :
-    print("ici")
     l = sorted(bandeau)
     create_bandeau(l)
 
@@ -43,7 +46,7 @@ window = tk.Tk()
 window.title("Bandeau de couleurs")
 
 #canvas
-cv = tk.Canvas(window,width = 900,height = 100)
+cv = tk.Canvas(window,width = 900,height = 900)
 cv.pack()
 
 #buttons
@@ -59,12 +62,18 @@ button4 = tk.Button(window,text="RESET", command=reset,background="red").pack(si
 #creation du bandeau
 def create_bandeau(list) :
     x=0
+    y=0
     for i in range(len(list)) :
-        x1 = x
-        x2 = x+100
-        cv.create_rectangle(x1,0,x2,100, fill=couleurs[list[i]-1],outline="black")
-        coord.append((x1,x2))
-        x+=100 
+        for j in range(len(list[0])) :
+            x1 = x
+            x2 = x+25
+            y1 = y
+            y2 = y + 25
+            cv.create_rectangle(x1,y1,x2,y2, fill=couleurs[list[i][j]],outline="black")
+            coord.append([(x1,x2),(y1,y2),(i,j)])
+            x+=25
+        x = 0
+        y+=25
 
 create_bandeau(bandeau)
 
