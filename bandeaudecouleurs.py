@@ -37,6 +37,9 @@ def tri(event) :
     l = sorted(bandeau)
     create_bandeau(l)
 
+def test2() :
+    pass #TODO
+
 #attribution des events 
 cv.bind("<Button-1>", callclick) 
 cv.bind("<Return>",tri)  
