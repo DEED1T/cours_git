@@ -2,9 +2,9 @@ import tkinter as tk
 import random as r
 
 #bandeau de couleurs
-couleurs = ["white","blue","red","green","yellow","pink","orange"]
+couleurs = ["white","blue","red","green","yellow","pink","orange","black"]
 bandeau = [[0 for i in range(50)] for j in range(50)]
-print(bandeau)
+bandeau_base = [[0 for i in range(50)] for j in range(50)]
 coord = []
 
 #pencil
@@ -12,11 +12,14 @@ pen = ["yellow",4]
 
 #events
 #pencils change
+def pen_black() :
+    global pen
+    pen = ["black",7]
+    
 def pen_yellow() :
     global pen
     pen = ["yellow",4]
     
-
 def pen_pink() :
     global pen
     pen = ["pink",5]
@@ -24,6 +27,24 @@ def pen_pink() :
 def pen_orange() :
     global pen
     pen = ["orange",6]
+    
+def motif1() :
+    for i in range(len(bandeau)) :
+        for j in range(len(bandeau[0])) :
+            if i%2 == 0 :
+                bandeau[i][j] = 7
+    
+    create_bandeau(bandeau)
+
+def motif2() :
+    for i in range(len(bandeau)) :
+        for j in range(len(bandeau[0])) :
+            if j%2 == 0 :
+                bandeau[i][j] = 7
+    
+    create_bandeau(bandeau)
+        
+
     
 #clicks/bind event
 def callclick(event) :
@@ -35,9 +56,11 @@ def callclick(event) :
             bandeau[i][j] = pen[1]
 
 def reset() :
-    create_bandeau(bandeau)
+    global bandeau,bandeau_base
+    create_bandeau(bandeau_base)
 
 def tri(event) :
+    global bandeau,bandeau_base
     l = sorted(bandeau)
     create_bandeau(l)
 
@@ -56,6 +79,9 @@ button1 = tk.Button(window,text="jaune", command=pen_yellow,background="yellow")
 button2 = tk.Button(window,text="rose", command=pen_pink,background="pink").pack(side="right", padx=10, pady=10)
 button3 = tk.Button(window,text="orange", command=pen_orange,background="orange").pack(side="right", padx=10, pady=10)
 button4 = tk.Button(window,text="RESET", command=reset,background="red").pack(side="left", padx=10, pady=10)
+button5 = tk.Button(window,text="black", command=pen_black).pack(side="right", padx=10, pady=10)
+button6 = tk.Button(window,text="MOTIF1", command=motif1,background="green").pack(side="left", padx=10, pady=10)
+button7 = tk.Button(window,text="MOTIF2", command=motif2,background="green").pack(side="left", padx=10, pady=10)
 
 
 
