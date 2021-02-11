@@ -40,6 +40,9 @@ def tri(event) :
 def test1() :
     pass #TODO
 
+def test2() :
+    pass #TODO
+
 #attribution des events 
 cv.bind("<Button-1>", callclick) 
 cv.bind("<Return>",tri)  
